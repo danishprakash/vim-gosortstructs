@@ -26,11 +26,11 @@ if exists('g:gosortstructs_cmd')
     let s:gosortstructs_cmd = g:gosortstructs_cmd
 endif
 
+" sorts specified struct
 function! gosortstructs#One() abort
-    " let [l:out, l:err] = s:execute_cmd(l:tempname, l:line)
-
     let l:line = a:firstline . ',' . a:lastline
     let l:args = printf('--line %s', l:line)
+
     call s:run(l:args)
 endfunction
 
@@ -84,19 +84,8 @@ function s:get_lines() abort
 endfunction
 
 function! s:update_file(source, target) abort
-    " let old_fileformat = &fileformat
     call rename(a:source, a:target)
 
     " reload buffer silently to reflect changes
     silent edit!
-
-    " let &fileformat = l:old_fileformat
-endfunction
-
-function! s:get_position(mode) abort
-    if a:mode ==# 'v'
-        return printf('#L%d-L%d', line("'<"), line("'>"))
-    else
-        return printf('#L%d', line('.'))
-    endif
 endfunction
